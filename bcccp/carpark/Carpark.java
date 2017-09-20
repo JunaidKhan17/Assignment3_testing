@@ -21,7 +21,20 @@ public class Carpark implements ICarpark {
 	
 	public Carpark(String name, int capacity, 
 			IAdhocTicketDAO adhocTicketDAO, 
-			ISeasonTicketDAO seasonTicketDAO) {
+			ISeasonTicketDAO seasonTicketDAO) throws Exception {
+		
+		if(name==null || name.equals(""))
+			throw new Exception("Name cannot be null or empty");
+		
+		
+		if(capacity <=0)
+			throw new Exception("Capacity cannot be zero or lesser");
+		
+		
+		
+//		if(seasonTicketDAO.getNumberOfTickets()==0 || (seasonTicketDAO.getNumberOfTickets() > (0.1*capacity)))
+	//		throw new Exception("Season Tickets cannot be zero or more than 10% of capacity");
+		
 		this.carparkId = name;
 		this.capacity = capacity;
 		observers = new ArrayList<>();
@@ -33,8 +46,12 @@ public class Carpark implements ICarpark {
 	
 	@Override
 	public void register(ICarparkObserver observer) {
-		if (!observers.contains(observer)) {
-			observers.add(observer);
+		
+		if(nParked<capacity)
+		{
+			if (!observers.contains(observer)) {
+				observers.add(observer);
+			}
 		}
 	}
 
@@ -72,7 +89,11 @@ public class Carpark implements ICarpark {
 	
 	
 	@Override
-	public IAdhocTicket issueAdhocTicket() {
+	public IAdhocTicket issueAdhocTicket() throws Exception {
+		
+		if(isFull())
+			throw new Exception("No adhoc spaces available");
+		
 		return adhocTicketDAO.createTicket(carparkId);
 	}
 	
@@ -103,7 +124,11 @@ public class Carpark implements ICarpark {
 	
 	
 	@Override
-	public void registerSeasonTicket(ISeasonTicket seasonTicket) {
+	public void registerSeasonTicket(ISeasonTicket seasonTicket) throws Exception {
+		
+		if(!seasonTicket.getCarparkId().equals(carparkId))
+			throw new Exception("The ticket associated does not have the same car park name");
+		
 		seasonTicketDAO.registerTicket(seasonTicket);		
 	}
 

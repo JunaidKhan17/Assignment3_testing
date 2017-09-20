@@ -77,7 +77,12 @@ public class EntryUI extends JFrame implements IEntryUI {
 		JButton issueAdhocTicketButton = new JButton("Issue Adhoc Ticket");
 		issueAdhocTicketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pushButton();
+				try {
+					pushButton();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		});
@@ -164,7 +169,7 @@ public class EntryUI extends JFrame implements IEntryUI {
 	
 	
 	
-	private void pushButton() {
+	private void pushButton() throws Exception {
 		log("pushButton : calling button pushed");
 		controller.buttonPushed();	
 	}

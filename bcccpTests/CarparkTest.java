@@ -5,13 +5,27 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import bcccp.carpark.Carpark;
+import bcccp.tickets.season.ISeasonTicketDAO;
+import bcccp.tickets.season.SeasonTicket;
+import bcccp.tickets.season.SeasonTicketDAO;
 
 public class CarparkTest {
 
-	 @Test
-	    public void ownerNameNullOrEmpty() {
-	        Carpark carpark = new Carpark("myparking",100,null,null);
-
-	        assertEquals("Parking name should be myparking", "myparking", carpark.getName());
-	    }
+	
+	 
+	 @Test(expected = Exception.class)
+	 public void ownerNameNullOrEmpty() throws Exception 
+	 {
+		  Carpark carpark = new Carpark("",100,null,null);
+		  Carpark carpark2 = new Carpark(null,100,null,null);
+	 }
+	 
+	 @Test(expected = Exception.class)
+	 public void capacityZeroOrLesser() throws Exception 
+	 {
+		  Carpark carpark = new Carpark("my parking",0,null,null);
+		  Carpark carpark2 = new Carpark("my parking",-10,null,null);
+	 }
+	 
+	 
 }
