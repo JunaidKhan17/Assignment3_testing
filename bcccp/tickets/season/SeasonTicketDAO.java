@@ -14,6 +14,9 @@ public class SeasonTicketDAO implements ISeasonTicketDAO {
 	
 	
 	public SeasonTicketDAO(IUsageRecordFactory factory) {
+		if(factory==null)
+			throw new RuntimeException("The factory cannot be null");
+		
 		this.factory = factory;
 		currentTickets = new HashMap<>();		
 	}
@@ -22,6 +25,10 @@ public class SeasonTicketDAO implements ISeasonTicketDAO {
 	
 	@Override
 	public void registerTicket(ISeasonTicket ticket) {
+		
+		if(ticket==null)
+			throw new RuntimeException("The ticket cannot be null");
+		
 		if (!currentTickets.containsKey(ticket.getId())) {
 			currentTickets.put(ticket.getId(),ticket);
 		}
@@ -69,6 +76,8 @@ public class SeasonTicketDAO implements ISeasonTicketDAO {
 		ISeasonTicket ticket = findTicketById(ticketId);
 		if (ticket == null) throw new RuntimeException("finaliseTicketUsage : no such ticket: " + ticketId);
 
+		if(!ticket.inUse()) throw new RuntimeException("Ticket Not in use: " + ticketId);
+		
 		long dateTime = System.currentTimeMillis();
 		ticket.endUsage(dateTime);
 		
