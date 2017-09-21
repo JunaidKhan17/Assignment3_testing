@@ -18,6 +18,17 @@ public class AdhocTicket implements IAdhocTicket {
 	
 	
 	public AdhocTicket(String carparkId, int ticketNo, String barcode) {
+		
+		if(ticketNo < 0)
+			throw new RuntimeException("Ticket number cannot be less than 0");
+		
+		if(barcode==null || barcode.equals(""))
+			throw new RuntimeException("Barcode cannot be empty or null");
+		
+		if(carparkId==null || carparkId.equals(""))
+			throw new RuntimeException("carparkId cannot be empty or null");
+		
+		
 		this.carparkId_ = carparkId;
 		this.ticketNo_ = ticketNo;
 		this.barcode = barcode;
@@ -28,7 +39,11 @@ public class AdhocTicket implements IAdhocTicket {
 	
 	@Override
 	public String getBarcode() {
-		return barcode;
+		
+		String barcodeReturn = "A" + javax.xml.bind.DatatypeConverter.printHexBinary(("" + ticketNo_).getBytes());
+		barcodeReturn = barcodeReturn + javax.xml.bind.DatatypeConverter.printHexBinary(("" + entryDateTime).getBytes());
+		return barcodeReturn;
+		
 	}
 
 
@@ -49,6 +64,10 @@ public class AdhocTicket implements IAdhocTicket {
 	
 	@Override
 	public void enter(long entryDateTime) {
+		
+		if(entryDateTime<0)
+			throw new RuntimeException("Entry time cannot be zero or lesser");
+		
 		this.entryDateTime = entryDateTime;
 		this.state_ = STATE.CURRENT;		
 	}
@@ -64,6 +83,10 @@ public class AdhocTicket implements IAdhocTicket {
 	
 	@Override
 	public void pay(long paidDateTime, float charge) {
+		
+		if(paidDateTime < entryDateTime)
+			throw new RuntimeException("Paid before entry time");
+		
 		this.paidDateTime = paidDateTime;
 		this.charge = charge;
 		state_ = STATE.PAID;
@@ -117,6 +140,9 @@ public class AdhocTicket implements IAdhocTicket {
 
 	@Override
 	public void exit(long dateTime) {
+		if(paidDateTime > dateTime)
+			throw new RuntimeException("Exit before paid time");
+		
 		exitDateTime = dateTime;
 		state_ = STATE.EXITED;
 	}
