@@ -9,6 +9,13 @@ public class UsageRecord implements IUsageRecord {
 	
 	
 	public UsageRecord(String ticketId, long startDateTime) {
+		
+		if(ticketId==null || ticketId.equals(""))
+			throw new RuntimeException("ticketId cannot be empty or null");
+		
+		if(startDateTime<=0)
+			throw new RuntimeException("startDateTime cannot be less than or equal to zero");
+		
 		this.ticketId = ticketId;
 		this.startDateTime = startDateTime;
 	}
@@ -16,6 +23,10 @@ public class UsageRecord implements IUsageRecord {
 	
 	
 	public void finalise(long endDateTime) {
+		
+		if(endDateTime<=0)
+			throw new RuntimeException("endDateTime cannot be less than or equal to zero");
+		
 		this.endDateTime = endDateTime;
 	}
 	
