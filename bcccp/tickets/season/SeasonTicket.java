@@ -17,6 +17,22 @@ public class SeasonTicket implements ISeasonTicket {
 	public SeasonTicket (String ticketId, String carparkId, 
 			             long startValidPeriod,
 			             long endValidPeriod) {
+		
+		
+		if(ticketId==null || ticketId.equals(""))
+			throw new RuntimeException("ticketId cannot be empty or null");
+		
+		if(carparkId==null || carparkId.equals(""))
+			throw new RuntimeException("carparkId cannot be empty or null");
+		
+		if(startValidPeriod<=0)
+			throw new RuntimeException("Start Date cannot be less or equal to zero");
+		
+		if(endValidPeriod<=0 || (endValidPeriod<startValidPeriod))
+			throw new RuntimeException("End Date cannot be less or equal to zero and it cannot be lesser than startPeriod");
+			
+		
+		
 		this.ticketId = ticketId;
 		this.carparkId =carparkId;
 		this.startValidPeriod = startValidPeriod;
@@ -68,7 +84,11 @@ public class SeasonTicket implements ISeasonTicket {
 
 	@Override
 	public IUsageRecord getCurrentUsageRecord() {
-		return currentUsage;
+		
+		if(inUse())
+			return currentUsage;
+		else 
+			return null;
 	}
 
 
