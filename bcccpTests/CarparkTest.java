@@ -1,5 +1,10 @@
 package bcccpTests;
 
+
+
+import static org.junit.Assert.assertEquals;
+
+
 import org.junit.Test;
 
 import bcccp.carpark.Carpark;
@@ -25,5 +30,3 @@ public class CarparkTest {
 		  Carpark carpark2 = new Carpark("my parking",-10,null,null);
 	 }
 	 
-	 
-}
