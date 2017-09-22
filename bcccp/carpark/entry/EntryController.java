@@ -245,7 +245,7 @@ public class EntryController
 	
 	
 	@Override
-	public void buttonPushed() {
+	public void buttonPushed() throws Exception {
 		if (state_ == STATE.WAITING) {
 			if (!carpark.isFull()) {
 				adhocTicket = carpark.issueAdhocTicket();
@@ -328,4 +328,3 @@ public class EntryController
 
 	
 
-}
