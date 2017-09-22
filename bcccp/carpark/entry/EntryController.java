@@ -34,7 +34,10 @@ public class EntryController
 	public EntryController(Carpark carpark, IGate entryGate, 
 			ICarSensor os, 
 			ICarSensor is,
-			IEntryUI ui) {
+			IEntryUI ui) throws Exception {
+		
+		if(carpark==null || entryGate==null || os==null || is==null || ui==null)
+			throw new RuntimeException("Constructor objects cannot be null");
 		
 		this.carpark = carpark;
 		this.entryGate_ = entryGate;
@@ -327,4 +330,4 @@ public class EntryController
 	}
 
 	
-
+               }

@@ -11,7 +11,7 @@ public interface ICarpark {
 	public boolean isFull();
 	
 	public IAdhocTicket issueAdhocTicket() throws Exception;
-	
+
 	public void recordAdhocTicketEntry();
 	public IAdhocTicket getAdhocTicket(String barcode);
 	

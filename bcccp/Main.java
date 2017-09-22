@@ -27,6 +27,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//git testing
 					CarSensor eos = new CarSensor("Entry Outside Sensor", 20, 100);
 					Gate egate = new Gate(20, 320);
 					CarSensor eis = new CarSensor("Entry Inside Sensor", 20, 440);
