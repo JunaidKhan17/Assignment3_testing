@@ -15,6 +15,10 @@ public class AdhocTicketDAO  implements IAdhocTicketDAO  {
 	
 	
 	public AdhocTicketDAO(IAdhocTicketFactory adhocTicketFactory) {
+		
+		if(adhocTicketFactory==null)
+			throw new RuntimeException("The ticket cannot be null");
+		
 		this.adhocTicketFactory_ = adhocTicketFactory;
 		currentTickets = new HashMap<>();		
 	}
