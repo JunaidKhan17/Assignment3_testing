@@ -11,8 +11,10 @@ public interface ICarpark {
 	public boolean isFull();
 	
 	public IAdhocTicket issueAdhocTicket() throws Exception;
+
 	public void recordAdhocTicketEntry();
 	public IAdhocTicket getAdhocTicket(String barcode);
+	
 	public float calculateAddHocTicketCharge(long entryDateTime);
 	public void recordAdhocTicketExit();
 	
@@ -20,9 +22,9 @@ public interface ICarpark {
 	public void deregisterSeasonTicket(ISeasonTicket seasonTicket);
 
 	public boolean isSeasonTicketValid(String ticketId);
+	
 	public boolean isSeasonTicketInUse(String ticketId);
 	public void recordSeasonTicketEntry(String ticketId);
 	public void recordSeasonTicketExit(String ticketId);
-
 
 }
